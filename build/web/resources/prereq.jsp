@@ -36,12 +36,18 @@
     String defaultJS = bootstrap + "";
 %>
 
+<%-- head --%>
+<%
+    String title = "";
+%>
+
 <%-- active sidebar --%>
 <%
-    String nav_dashboard;
-    String nav_forum;
-    String nav_heatmap;
-    String nav_disaster;
-    String nav_relief;
+    String nav_dashboard = "";
+    String nav_forum = "";
+    String nav_heatmap = "";
+    String nav_disaster = "";
+    String nav_relief = "";
 %>
+
 
