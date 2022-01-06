@@ -13,7 +13,7 @@
     
 
     <!-- Bootstrap core CSS -->
-<link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -33,7 +33,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../resources/bootstrap/dashboard/dashboard.css" rel="stylesheet">
+    <link href="../../resources/bootstrap/dashboard/dashboard.css" rel="stylesheet">
   </head>
   <body>
     
@@ -175,9 +175,9 @@
 </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="../resources/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../resources/feather-icons/feather.min.js"></script>
-    <script src="../resources/chartjs/chart.min.js"></script>
-    <script src="../resources/bootstrap/dashboard/dashboard.js"></script>
+    <script src="../../resources/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../resources/feather-icons/feather.min.js"></script>
+    <script src="../../resources/chartjs/chart.min.js"></script>
+    <script src="../../resources/bootstrap/dashboard/dashboard.js"></script>
   </body>
 </html>
