@@ -9,7 +9,7 @@
 <%    
     title = "Disaster Information Relief System - Dashboard";
     nav_dashboard = "active";
-    nav_forum = "";
+    nav_users = "";
     nav_heatmap = "";
     nav_disaster = "";
     nav_relief = "";

@@ -28,7 +28,7 @@
                 if (userType.equals("ADMIN")){
                     %>
                     <li class="nav-item">
-                        <a class="nav-link <%= nav_users%>" href="#">
+                        <a class="nav-link <%= nav_users%>" href="<%= root %>/usersController?request=index">
                             <span data-feather="users"></span>
                             View Users
                         </a>

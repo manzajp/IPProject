@@ -3,7 +3,7 @@
 <%    
     title = "Disaster Information Relief System - Profile";
     nav_dashboard = "";
-    nav_forum = "";
+    nav_users = "";
     nav_heatmap = "";
     nav_disaster = "";
     nav_relief = "";

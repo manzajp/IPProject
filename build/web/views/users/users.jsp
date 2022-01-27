@@ -8,8 +8,8 @@
 %>
 
 <%-- servlet get --%>
-<%    
-    // ArrayList<Relief> reliefs = (ArrayList<Relief>) request.getAttribute("reliefs");
+<%
+    ArrayList<user> users = (ArrayList<user>) session.getAttribute("users");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,20 +38,18 @@
                             </thead>
                             <tbody>
                                 <!-- loop -->
-                                <% // for(int i = 0; i < reliefs.size(); i++) {%>
-                                <!--<tr onclick="window.location = '<%= // root %>/relief?request=view&id=<%= // reliefs.get(i).getId() %>';">-->
-                                    <!--<td><%= // reliefs.get(i).getTitle() %></td>-->
-                                    <!--<td><%= // reliefs.get(i).getDescription() %></td>-->
-                                    <!--<td><%= // reliefs.get(i).getLocation() %></td>-->
-                                    <!--<td><%= // reliefs.get(i).getStartDate() %></td>-->  
-                                    <!--<td><%= // reliefs.get(i).getState() %></td>-->  
-                                <!--</tr>-->
-                                <% // } %>
+                                <% for(int i = 0; i < users.size(); i++) {%>
+                                    <tr onclick="window.location = '<%= root %>/usersController?request=view&id=<%= users.get(i).getId() %>';">
+                                        <td><%= users.get(i).getId() %></td>
+                                        <td><%= users.get(i).getUsername() %></td>
+                                        <td><%= users.get(i).getUserType() %></td>
+                                    </tr>
+                                <%  } %>
                             </tbody>
                         </table>
                     </div>
                     <div>
-                        <a class="btn btn-dark" href="<%= root %>/relief?request=newForm" role="button">Add</a>
+                        <a class="btn btn-dark" href="<%= root %>/usersController?request=add" role="button">Add</a>
                     </div>
                 </main>
             </div>
