@@ -12,6 +12,10 @@
         <servlet-name>registerServlet</servlet-name>
         <servlet-class>_controller.registerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editProfileServlet</servlet-name>
+        <servlet-class>_controller.editProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relief</servlet-name>
         <url-pattern>/relief</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>registerServlet</servlet-name>
         <url-pattern>/registerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editProfileServlet</servlet-name>
+        <url-pattern>/editProfileServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
