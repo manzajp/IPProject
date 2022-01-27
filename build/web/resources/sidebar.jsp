@@ -10,6 +10,11 @@
             <li class="nav-item">
                 <a class="nav-link disabled">
                     <span data-feather="user"></span>
+                    <%
+                        if (){
+                        
+                        }
+                    %>
                     Admin
                 </a>
             </li>

@@ -64,7 +64,7 @@ public class registerServlet extends HttpServlet {
             try {
                 Class.forName(driver);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(insertRelief.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(registerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             String query = "SELECT * FROM users";
@@ -98,7 +98,7 @@ public class registerServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("views/login/signup.jsp");
                 rd.forward(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(insertRelief.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(registerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         

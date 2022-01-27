@@ -42,7 +42,7 @@ public class reliefController extends HttpServlet {
         
         // Database prereqs
         String driver = "com.mysql.jdbc.Driver",
-                        dbName = "ipproject",
+                        dbName = "ip",
                         url = "jdbc:mysql://localhost/" + dbName + "?",
                         username = "root",
                         password = "";
