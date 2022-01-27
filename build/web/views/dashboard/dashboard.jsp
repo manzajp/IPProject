@@ -18,7 +18,39 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="../../resources/head.jsp"%>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Disaster Information Relief System - Dashboard</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="<%= bootstrapCSS%>" rel="stylesheet">
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+
+        <!-- Custom styles for this template -->
+        <link href="<%= pageCSS%>" rel="stylesheet">
+        
+        <% 
+            if (session.getAttribute("loggedIn") == null){
+                String login = "0; url='" + request.getContextPath() + "/views/login/login.jsp'"; %>
+                <meta http-equiv="Refresh" content="<%= login %>" /> <%
+            }
+        %>
+    </head>
     <body>
         <%@include file="../../resources/header.jsp"%>
 
