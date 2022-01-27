@@ -44,7 +44,7 @@
 <%-- active sidebar --%>
 <%
     String nav_dashboard = "";
-    String nav_forum = "";
+    String nav_users = "";
     String nav_heatmap = "";
     String nav_disaster = "";
     String nav_relief = "";
