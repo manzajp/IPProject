@@ -5,10 +5,10 @@
 --%>
 
 <%
-    if (session.getAttribute("loggedIn") == null){
+    if (session.getAttribute("currUser") == null){ // no user logged in
         String login = "0; url='" + request.getContextPath() + "/views/login/login.jsp'"; %>
         <meta http-equiv="Refresh" content="<%= login %>" /> <%
-    } else {
+    } else {  // there is a user logged in
         String dashboard = "0; url='" + request.getContextPath() + "/views/dashboard/dashboard.jsp'"; %>
         <meta http-equiv="Refresh" content="<%= dashboard %>" /> <%
     }
