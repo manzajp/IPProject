@@ -52,7 +52,40 @@ public class usersController extends HttpServlet {
         
         String action = request.getParameter("request");
         if (action.equals("view")){
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
+            try {
+                Connection con = DriverManager.getConnection(url, username, password);
+                
+                PreparedStatement ps;
+                ResultSet rs;
+                int id = Integer.parseInt(request.getParameter("id"));
+                user userToView = new user("", "", "", id);
+                String query = "SELECT * FROM users where id = ?";
+                
+                ps = con.prepareStatement(query);
+                ps.setInt(1, id);
+                rs = ps.executeQuery();
+                
+                while (rs.next()){
+                    userToView.setUsername(rs.getString("username"));
+                    userToView.setPassword(rs.getString("password"));
+                    userToView.setUserType(rs.getString("userType"));
+                }
+                
+                ps.close();
+                con.close();
+                
+                session.setAttribute("userToView", userToView);
+                RequestDispatcher rd = request.getRequestDispatcher("/views/users/view_user.jsp");
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (action.equals("index")){
             try {
                 Class.forName(driver);
@@ -79,6 +112,9 @@ public class usersController extends HttpServlet {
                     users.add(new user(uname, pwd, type, id));
                 }
                 
+                ps.close();
+                con.close();
+                
                 session.setAttribute("users", users);
                 RequestDispatcher rd = request.getRequestDispatcher("/views/users/users.jsp");
                 rd.forward(request, response);
@@ -94,7 +130,35 @@ public class usersController extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/views/users/admin/edit_user.jsp");
             rd.forward(request, response);
         } else if (action.equals("edit")){    
-        
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                Connection con = DriverManager.getConnection(url, username, password);
+                
+                PreparedStatement ps;
+                ResultSet rs;
+                int id = Integer.parseInt(request.getParameter("id"));
+                String uname = request.getParameter("uname");
+                String utype = request.getParameter("userType");
+                String query = "UPDATE users SET username = ?, userType = ? where id = ?";
+                
+                ps = con.prepareStatement(query);
+                ps.setString(1,uname);
+                ps.setString(2, utype);
+                ps.setInt(3,id);
+                ps.executeUpdate();
+                
+                ps.close();
+                con.close();
+                
+                response.sendRedirect("usersController?request=index");
+            } catch (SQLException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (action.equals("delete")){
             
         }

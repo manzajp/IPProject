@@ -24,18 +24,12 @@
                     Dashboard
                 </a>
             </li>
-            <% 
-                if (userType.equals("ADMIN")){
-                    %>
-                    <li class="nav-item">
-                        <a class="nav-link <%= nav_users%>" href="<%= root %>/usersController?request=index">
-                            <span data-feather="users"></span>
-                            View Users
-                        </a>
-                    </li>
-                <% }
-            %>
-            
+            <li class="nav-item">
+                <a class="nav-link <%= nav_users%>" href="<%= root %>/usersController?request=index">
+                    <span data-feather="users"></span>
+                    View Users
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link <%= nav_heatmap %>" href="<%= heatmap%>/map.jsp">
                     <span data-feather="map"></span>
