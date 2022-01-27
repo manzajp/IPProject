@@ -61,7 +61,7 @@ public class loginServlet extends HttpServlet {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(insertRelief.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         try {
@@ -97,7 +97,7 @@ public class loginServlet extends HttpServlet {
                 rd.forward(request, response);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(insertRelief.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
