@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class reportDAO {
     private String driver = "com.mysql.jdbc.Driver";
-    private String dbName = "dirs";
+    private String dbName = "ip";
     private String url = "jdbc:mysql://localhost/" + dbName + "?";
     private String userName = "root";
     private String password = "";

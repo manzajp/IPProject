@@ -4,18 +4,18 @@
     Author     : User
 --%>
 
+<%@page import="_model.user"%>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link disabled">
                     <span data-feather="user"></span>
-                    <%
-                        if (){
-                        
-                        }
+                    <% 
+                        user currUser = (user) session.getAttribute("currUser");
+                        String userType = currUser.getUserType().toUpperCase();
                     %>
-                    Admin
+                    <%= userType %>
                 </a>
             </li>
             <li class="nav-item">

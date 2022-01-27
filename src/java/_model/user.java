@@ -10,7 +10,15 @@ package _model;
  * @author User
  */
 public class user {
-    String username, email, password;
+    String username, password, userType;
+    int id;
+
+    public user(String username, String password, String userType, int id) {
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -19,20 +27,28 @@ public class user {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

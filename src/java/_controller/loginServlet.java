@@ -4,6 +4,7 @@
  */
 package _controller;
 
+import _model.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -76,9 +77,9 @@ public class loginServlet extends HttpServlet {
                     String currPassword = rs.getString("password");
                     if (pwd.equals(currPassword)){
                         int id = rs.getInt("id");
-                        session.setAttribute("id", id);
                         String type = rs.getString("userType");
-                        session.setAttribute("loggedIn", type);
+                        user currUser = new user(currUsername, currPassword, type, id);
+                        session.setAttribute("currUser", currUser);
                         found = true;
                         break;
                     }
