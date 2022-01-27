@@ -49,7 +49,13 @@
                         </table>
                     </div>
                     <div>
-                        <a class="btn btn-dark" href="<%= root %>/usersController?request=add" role="button">Add</a>
+                        <% 
+                            user thisUser = (user) session.getAttribute("currUser");
+                            
+                            if (thisUser.getUserType().equals("admin")){ %>
+                                <a class="btn btn-dark" href="<%= root %>/usersController?request=add" role="button">Add</a>
+                            <% }
+                        %>
                     </div>
                 </main>
             </div>
