@@ -14,7 +14,8 @@
     }
 %>    
 
-<%    
+<%  
+    int id = Integer.parseInt(request.getParameter("id"));
     user userToEdit = (user) session.getAttribute("userToView");
 %>
 
@@ -40,17 +41,17 @@
                                 let utype = document.forms["usersEditForm"]["userType"].value;
                                 
                                 if (uname === "") {
-                                  alert("Title must be filled out!");
+                                  alert("Username must be filled out!");
                                   return false;
                                 } 
                                 if (utype === "") {
-                                  alert("Description must be filled out!");
+                                  alert("User Type must be selected!");
                                   return false;
                                 }
                                 return true;
                             }
                         </script>
-                        <form name="usersEditForm" onsubmit="return formValidate()" action="<%= root %>/usersController?request=edit" method="POST">
+                        <form name="usersEditForm" onsubmit="return formValidate()" action="<%= root %>/usersController?request=edit&id=<%= id %>" method="POST">
                             <div class="form-group">
                                 <div>
                                     <table class="table table-bordered">
@@ -74,9 +75,8 @@
                             <br/>
                             <div class="row justify-content-center">
                                 <div class="col-1"><button type="submit" class="btn btn-dark">Submit</button></div>
-                                <div class="col-1"><a href="?request=view&id=<%= userToEdit.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Back</a></div>
+                                <div class="col-1"><a href="?request=view&id=<%= id %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Back</a></div>
                             </div>
-                            <input name="id" id="id" type="hidden" value="<%= userToEdit.getId() %>">
                         </form>
                     </div>
                 </main>

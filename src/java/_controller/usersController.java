@@ -65,7 +65,7 @@ public class usersController extends HttpServlet {
                 ResultSet rs;
                 int id = Integer.parseInt(request.getParameter("id"));
                 user userToView = new user("", "", "", id);
-                String query = "SELECT * FROM users where id = ?";
+                String query = "SELECT * FROM users WHERE id = ?";
                 
                 ps = con.prepareStatement(query);
                 ps.setInt(1, id);
@@ -125,7 +125,34 @@ public class usersController extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/views/users/admin/create_user.jsp");
             rd.forward(request, response);
         } else if (action.equals("add")){    
-        
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                Connection con = DriverManager.getConnection(url, username, password);
+                
+                PreparedStatement ps;
+                String uname = request.getParameter("uname");
+                String pword = request.getParameter("pword");
+                String utype = request.getParameter("userType");
+                String query = "INSERT INTO users (username, password, userType) VALUES (?,?,?)";
+                
+                ps = con.prepareStatement(query);
+                ps.setString(1, uname);
+                ps.setString(2, pword);
+                ps.setString(3, utype);
+                ps.executeUpdate();
+                
+                ps.close();
+                con.close();
+                
+                response.sendRedirect("usersController?request=index");
+            } catch (SQLException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (action.equals("editForm")){
             RequestDispatcher rd = request.getRequestDispatcher("/views/users/admin/edit_user.jsp");
             rd.forward(request, response);
@@ -140,11 +167,10 @@ public class usersController extends HttpServlet {
                 Connection con = DriverManager.getConnection(url, username, password);
                 
                 PreparedStatement ps;
-                ResultSet rs;
                 int id = Integer.parseInt(request.getParameter("id"));
                 String uname = request.getParameter("uname");
                 String utype = request.getParameter("userType");
-                String query = "UPDATE users SET username = ?, userType = ? where id = ?";
+                String query = "UPDATE users SET username = ?, userType = ? WHERE id = ?";
                 
                 ps = con.prepareStatement(query);
                 ps.setString(1,uname);
@@ -160,7 +186,31 @@ public class usersController extends HttpServlet {
                 Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (action.equals("delete")){
+            try {
+                Class.forName(driver);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
+            try {
+                Connection con = DriverManager.getConnection(url, username, password);
+                
+                PreparedStatement ps;
+                ResultSet rs;
+                int id = Integer.parseInt(request.getParameter("id"));
+                String query = "DELETE FROM users WHERE id = ?";
+                
+                ps = con.prepareStatement(query);
+                ps.setInt(1,id);
+                ps.executeUpdate();
+                
+                ps.close();
+                con.close();
+                
+                response.sendRedirect("usersController?request=index");
+            } catch (SQLException ex) {
+                Logger.getLogger(usersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
