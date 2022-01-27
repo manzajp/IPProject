@@ -9,7 +9,7 @@
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Team 4 - Red Shirt Kids</a>
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Sign out</a>
+            <a class="nav-link px-3" href="<%= root %>/loginServlet?logout=1">Sign out</a>
         </div>
     </div>
 </header>
