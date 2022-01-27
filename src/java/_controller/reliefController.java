@@ -165,12 +165,53 @@ public class reliefController extends HttpServlet {
                     response.sendRedirect("relief?request=index");
                 }
                 break;
-            case "editForm": {
-                RequestDispatcher rd = request.getRequestDispatcher("/views/relief/admin/edit_relief.jsp");
-                rd.forward(request, response);
-            }
-            break;
-            case "delete":
+            case "editForm": 
+                {
+                    String id = (String) request.getParameter("id");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/admin/edit_relief.jsp");
+                    rd.forward(request, response);
+                }
+                break;
+            case "edit": 
+                {
+                    String
+                        id = (String) request.getParameter("id"),
+                        title = (String) request.getParameter("title"),
+                        description = (String) request.getParameter("description"),
+                        location = (String) request.getParameter("location"),
+                        startDate = (String) request.getParameter("startDate"),
+                        endDate = (String) request.getParameter("endDate"),
+                        state = (String) request.getParameter("state"),
+                        tablecol = "reliefs(id, name, userID, description, location, startDate, endDate, state)",
+                        values = "'" + id + "''" + title + "', '1', '" + description + "','" + location + "','" + startDate + "','" + endDate + "','" + state + "'",
+                        query = "INSERT INTO " + tablecol + " " + " VALUES(" + values + ")";
+
+
+                    try {
+                        Class.forName(driver);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    try {
+                        try (Connection con = DriverManager.getConnection(url, username, password); Statement st = con.createStatement()) {
+                            st.executeUpdate(query);
+                            
+                            int insertStatus = 0;
+                            
+                            System.out.println(insertStatus + " row affected");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    response.sendRedirect("relief?request=index");
+                }
+                break;
+            case "delete": 
+                {
+                    
+                }
         }
     }
 
