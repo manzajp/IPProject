@@ -45,7 +45,7 @@
         <link href="<%= pageCSS%>" rel="stylesheet">
         
         <% 
-            if (session.getAttribute("loggedIn") == null){
+            if (session.getAttribute("currUser") == null){
                 String login = "0; url='" + request.getContextPath() + "/views/login/login.jsp'"; %>
                 <meta http-equiv="Refresh" content="<%= login %>" /> <%
             }
