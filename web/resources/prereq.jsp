@@ -16,7 +16,7 @@
     String dashboard = views + "/dashboard";
     String forum = views + "/forum";
     String heatmap = views + "/heatmap";
-    String disaster = views + "/disaster";
+    String disaster = views + "/report";
     String relief = views + "/relief";
 %>
 

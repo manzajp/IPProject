@@ -6,7 +6,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Disaster Information Relief System - Relief</title>
+    <title><%= title %></title>
 
     <!-- Bootstrap core CSS -->
     <link href="<%= bootstrapCSS%>" rel="stylesheet">

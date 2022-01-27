@@ -26,19 +26,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <%= nav_heatmap%>" href="<%= heatmap%>/map.jsp">
+                <a class="nav-link <%= nav_heatmap %>" href="<%= heatmap%>/map.jsp">
                     <span data-feather="map"></span>
                     Disaster Heat Map
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <%= nav_disaster%>" href="#">
+                <a class="nav-link <%= nav_disaster %>" href="<%= disaster%>/report.jsp">
                     <span data-feather="alert-circle"></span>
                     Report a Disaster
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <%= nav_relief%>" href="#">
+                <a class="nav-link <%= nav_relief%>" href="<%= root %>/relief?request=index">
                     <span data-feather="flag"></span>
                     Request Relief/Help
                 </a>
