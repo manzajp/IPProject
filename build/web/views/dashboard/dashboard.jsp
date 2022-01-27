@@ -42,6 +42,13 @@
 
         <!-- Custom styles for this template -->
         <link href="<%= pageCSS%>" rel="stylesheet">
+        
+        <% 
+            if (session.getAttribute("loggedIn") == null){
+                String login = "0; url='" + request.getContextPath() + "/views/login/login.jsp'"; %>
+                <meta http-equiv="Refresh" content="<%= login %>" /> <%
+            }
+        %>
     </head>
     <body>
         <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
