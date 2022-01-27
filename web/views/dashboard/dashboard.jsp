@@ -18,13 +18,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="../../resources/head.jsp"%>
-<!--    <head>
+    <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Disaster Information Relief System - Dashboard</title>
 
-         Bootstrap core CSS 
-        <link href="%= bootstrapCSS%>" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="<%= bootstrapCSS%>" rel="stylesheet">
 
         <style>
             .bd-placeholder-img {
@@ -42,10 +41,9 @@
             }
         </style>
 
-         Custom styles for this template 
-        <link href="%= pageCSS%>" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="<%= pageCSS%>" rel="stylesheet">
         
-<<<<<<< HEAD
         <% 
             if (session.getAttribute("currUser") == null){
                 String login = "0; url='" + request.getContextPath() + "/views/login/login.jsp'"; %>
@@ -53,10 +51,6 @@
             }
         %>
     </head>
-=======
-        
-    </head>-->
->>>>>>> 8d84643183623f00e2d3ef7e380500f55b03bdd3
     <body>
         <%@include file="../../resources/header.jsp"%>
 
