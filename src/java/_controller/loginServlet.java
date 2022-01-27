@@ -47,60 +47,65 @@ public class loginServlet extends HttpServlet {
         String logout = request.getParameter("logout");
         
         if (logout == null){ // logging in
-            String uname = request.getParameter("uname");
-            String pwd = request.getParameter("password");
+            if (session.getAttribute("currUser") == null){ // there is no one logged in right now
+                String uname = request.getParameter("uname");
+                String pwd = request.getParameter("password");
 
-            String 
-                    driver = "com.mysql.jdbc.Driver", 
-                    dbName = "ip", 
-                    url = "jdbc:mysql://localhost/" + dbName + "?",
-                    username = "root", 
-                    password = "";
+                String 
+                        driver = "com.mysql.jdbc.Driver", 
+                        dbName = "ip", 
+                        url = "jdbc:mysql://localhost/" + dbName + "?",
+                        username = "root", 
+                        password = "";
 
-            PreparedStatement ps;
-            ResultSet rs;
-            String query = "SELECT * FROM users";
+                PreparedStatement ps;
+                ResultSet rs;
+                String query = "SELECT * FROM users";
 
-            try {
-                Class.forName(driver);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                try {
+                    Class.forName(driver);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-            try {
-                Connection con = DriverManager.getConnection(url, username, password);
-                ps = con.prepareStatement(query);
-                rs = ps.executeQuery();
+                try {
+                    Connection con = DriverManager.getConnection(url, username, password);
+                    ps = con.prepareStatement(query);
+                    rs = ps.executeQuery();
 
-                boolean found = false;
-                while (rs.next()){
-                    String currUsername = rs.getString("username");
-                    if (uname.equals(currUsername)){
-                        String currPassword = rs.getString("password");
-                        if (pwd.equals(currPassword)){
-                            int id = rs.getInt("id");
-                            String type = rs.getString("userType");
-                            user currUser = new user(currUsername, currPassword, type, id);
-                            session.setAttribute("currUser", currUser);
-                            found = true;
-                            break;
+                    boolean found = false;
+                    while (rs.next()){
+                        String currUsername = rs.getString("username");
+                        if (uname.equals(currUsername)){
+                            String currPassword = rs.getString("password");
+                            if (pwd.equals(currPassword)){
+                                int id = rs.getInt("id");
+                                String type = rs.getString("userType");
+                                user currUser = new user(currUsername, currPassword, type, id);
+                                session.setAttribute("currUser", currUser);
+                                found = true;
+                                break;
+                            }
                         }
                     }
-                }
 
-                ps.close();
-                con.close();
+                    ps.close();
+                    con.close();
 
-                if (!found){
-                    session.setAttribute("errorLogin", "error");
-                    RequestDispatcher rd = request.getRequestDispatcher("views/login/login.jsp");
-                    rd.forward(request, response);
-                } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("views/dashboard/dashboard.jsp");
-                    rd.forward(request, response);
+                    if (!found){
+                        session.setAttribute("errorLogin", "error");
+                        RequestDispatcher rd = request.getRequestDispatcher("views/login/login.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        RequestDispatcher rd = request.getRequestDispatcher("views/dashboard/dashboard.jsp");
+                        rd.forward(request, response);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(loginServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } else { // there is a user logged in
+                RequestDispatcher rd = request.getRequestDispatcher("views/dashboard/dashboard.jsp");
+                rd.forward(request, response);
             }
         } else { // logging out
             session.invalidate();

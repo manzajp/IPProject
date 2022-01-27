@@ -5,11 +5,15 @@
 --%>
 
 
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<header class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Team 4 - Red Shirt Kids</a>
-    <div class="navbar-nav">
-        <div class="nav-item text-nowrap">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link px-3" href="<%= views %>/profile/profile.jsp">Profile</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link px-3" href="<%= root %>/loginServlet?logout=1">Sign out</a>
-        </div>
-    </div>
+        </li>
+    </ul>
 </header>
