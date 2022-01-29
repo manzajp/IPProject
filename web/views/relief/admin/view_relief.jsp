@@ -9,7 +9,6 @@
 <%-- servlet get --%>
 <%    
     Relief _relief = (Relief) request.getAttribute("relief");
-    String id = (String) request.getParameter("id");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -53,10 +52,17 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-1"><a href="?request=editForm&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Edit</a></div>
-                        <div class="col-1"><a href="?request=delete&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Delete</a></div>
-                    </div>
+                    <% 
+                        user thisUser = (user) session.getAttribute("currUser");
+                        if (thisUser.getUserType().equals("admin")){ 
+                    %>
+                            <div class="row justify-content-center">
+                                <div class="col-1"><a href="?request=editForm&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Edit</a></div>
+                                <div class="col-1"><a href="?request=delete&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Delete</a></div>
+                            </div>
+                    <% 
+                        }
+                    %>
                 </main>
             </div>
         </div>

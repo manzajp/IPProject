@@ -76,6 +76,4 @@ public class Relief {
     public void setState(String state) {
         this.state = state;
     }
-
-    
 }

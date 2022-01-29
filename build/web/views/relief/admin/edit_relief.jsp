@@ -9,7 +9,6 @@
 
 <%    
     Relief _relief = (Relief) request.getAttribute("relief");
-    String id = (String) request.getParameter("id");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +24,7 @@
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h2>Add Relief</h2>
+                        <h2>Edit Relief</h2>
                     </div>
                     <div>
                         <script>
@@ -58,22 +57,22 @@
                                 }
                             }
                         </script>
-                        <form name="reliefForm" onsubmit="return formValidate();" action="relief?request=create" method="POST">
+                        <form name="reliefForm" onsubmit="return formValidate();" action="relief?request=edit&id=<%= _relief.getId()%>" method="POST">
                             <div class="form-group">
                                 <div>
                                     <table class="table table-bordered">
                                         <tr>
                                             <td class="table-dark col-2">Title</td>
-                                            <td><input name="title" id="title" type="text" class="form-control" aria-describedby="titleHelp" placeholder="Enter relief's title" value="<%= _relief.getTitle() %>"></td>
+                                            <td><input name="title" id="title" type="text" class="form-control" aria-describedby="titleHelp" placeholder="Enter relief's title" value="<%= _relief.getTitle()%>"></td>
                                         </tr>
                                         <tr>
                                             <td class="table-dark col-2">Description</td>
-                                            <td><input name="description" id="description" type="text" class="form-control" aria-describedby="descHelp" placeholder="Enter relief's description"></td>
+                                            <td><input name="description" id="description" type="text" class="form-control" aria-describedby="descHelp" placeholder="Enter relief's description" value="<%= _relief.getDescription() %>"></td>
                                         </tr>
                                         <tr>
                                             <td class="table-dark col-2">Location</td>
                                             <td>
-                                                <select name="location" id="location" class="form-control" aria-describedby="locationHelp" placeholder="Enter a location">
+                                                <select name="location" id="location" class="form-control" aria-describedby="locationHelp" placeholder="Enter a location" value="<%= _relief.getLocation() %>">
                                                     <option value="Johor">Johor</option>
                                                     <option value="Kedah">Kedah</option>
                                                     <option value="Kelantan">Kelantan</option>
@@ -97,16 +96,16 @@
                                         
                                         <tr>
                                             <td class="table-dark col-2">Start Date</td>
-                                            <td><input name="startDate" id="startDate" type="date" class="form-control" aria-describedby="startDateHelp" placeholder="Enter a date"></td>
+                                            <td><input name="startDate" id="startDate" type="date" class="form-control" aria-describedby="startDateHelp" placeholder="Enter a date" value="<%= _relief.getStartDate() %>"></td>
                                         </tr>
                                         <tr>
                                             <td class="table-dark col-2">End Date</td>
-                                            <td><input name="endDate" id="endDate" type="date" class="form-control" aria-describedby="endDateHelp" placeholder="Enter a date"></td>
+                                            <td><input name="endDate" id="endDate" type="date" class="form-control" aria-describedby="endDateHelp" placeholder="Enter a date" value="<%= _relief.getEndDate() %>"></td>
                                         </tr>
                                         <tr>
                                             <td class="table-dark col-2">Active State</td>
                                             <td>
-                                                <select name="state" id="state" class="form-control" aria-describedby="stateHelp" placeholder="Enter a state">
+                                                <select name="state" id="state" class="form-control" aria-describedby="stateHelp" placeholder="Enter a state" value="<%= _relief.getState() %>">
                                                     <option value="Active">Active</option>
                                                     <option value="Inactive">Inactive</option>
                                                     <option value="Completed">Completed</option>

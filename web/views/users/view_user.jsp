@@ -46,11 +46,12 @@
                         <div class="col-1"><a href="?request=index" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Back</a></div>
                         <% 
                             user thisUser = (user) session.getAttribute("currUser");
-                            
-                            if (thisUser.getUserType().equals("admin")){ %>
+                            if (thisUser.getUserType().equals("admin")){ 
+                        %>
                                 <div class="col-1"><a href="?request=editForm&id=<%= userToView.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Edit</a></div>
                                 <div class="col-1"><a href="?request=delete&id=<%= userToView.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Delete</a></div>
-                            <% }
+                        <% 
+                            }
                         %>
                         
                     </div>

@@ -1,3 +1,4 @@
+<%@page import="_model.user"%>
 <%@page import="_model.Relief"%>
 <%@page import="java.util.ArrayList"%>
 <%@include file="../../../resources/prereq.jsp"%>
@@ -10,6 +11,7 @@
 <%-- servlet get --%>
 <%    
     ArrayList<Relief> reliefs = (ArrayList<Relief>) request.getAttribute("reliefs");
+    user userToView = (user) session.getAttribute("userToView");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,7 +43,7 @@
                             <tbody>
                                 <!-- loop -->
                                 <% for(int i = 0; i < reliefs.size(); i++) {%>
-                                <tr onclick="window.location = '<%= root %>/relief?request=view&id=<%= reliefs.get(i).getId() %>';">
+                                <tr onclick="window.location = 'relief?request=view&id=<%= reliefs.get(i).getId() %>';">
                                     <td><%= reliefs.get(i).getTitle() %></td>
                                     <td><%= reliefs.get(i).getDescription() %></td>
                                     <td><%= reliefs.get(i).getLocation() %></td>
@@ -52,9 +54,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div>
-                        <a class="btn btn-dark" href="<%= root %>/relief?request=newForm" role="button">Add</a>
-                    </div>
+                    <% 
+                        user thisUser = (user) session.getAttribute("currUser");
+                        if (thisUser.getUserType().equals("admin")){ %>
+                            <div>
+                                <a class="btn btn-dark" href="relief?request=newForm" role="button">Add</a>
+                            </div>
+                        <% }
+                    %>
                 </main>
             </div>
         </div>
