@@ -12,6 +12,22 @@
         <servlet-name>registerServlet</servlet-name>
         <servlet-class>_controller.registerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editProfileServlet</servlet-name>
+        <servlet-class>_controller.editProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>viewUsersServlet</servlet-name>
+        <servlet-class>_controller.viewUsersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>usersController</servlet-name>
+        <servlet-class>_controller.usersController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>evacController</servlet-name>
+        <servlet-class>_controller.evacController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relief</servlet-name>
         <url-pattern>/relief</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>registerServlet</servlet-name>
         <url-pattern>/registerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editProfileServlet</servlet-name>
+        <url-pattern>/editProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewUsersServlet</servlet-name>
+        <url-pattern>/viewUsersServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>usersController</servlet-name>
+        <url-pattern>/usersController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>evacController</servlet-name>
+        <url-pattern>/evacController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

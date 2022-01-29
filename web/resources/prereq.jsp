@@ -15,7 +15,7 @@
 <%
     String dashboard = views + "/dashboard";
     String forum = views + "/forum";
-    String heatmap = views + "/heatmap";
+    String ec = views + "/ec";
     String disaster = views + "/report";
     String relief = views + "/relief";
 %>
@@ -44,8 +44,8 @@
 <%-- active sidebar --%>
 <%
     String nav_dashboard = "";
-    String nav_forum = "";
-    String nav_heatmap = "";
+    String nav_users = "";
+    String nav_ec = "";
     String nav_disaster = "";
     String nav_relief = "";
 %>

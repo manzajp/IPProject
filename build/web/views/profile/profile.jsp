@@ -3,8 +3,8 @@
 <%    
     title = "Disaster Information Relief System - Profile";
     nav_dashboard = "";
-    nav_forum = "";
-    nav_heatmap = "";
+    nav_users = "";
+    nav_ec = "";
     nav_disaster = "";
     nav_relief = "";
 %>
@@ -26,10 +26,17 @@
                         <%
                             user thisUser = (user) session.getAttribute("currUser");
                         %>
-                        
+                        <h5>User Type: <%= thisUser.getUserType() %></h5>
+                        <br>
+                        <h5>User ID: <%= thisUser.getId() %></h5>
+                        <br>
+                        <h5>Username: <%= thisUser.getUsername() %></h5>
+                        <br>
+                        <button class="btn btn-warning" onclick="window.location.href='<%= views %>/profile/editProfile.jsp';">Edit profile</button>
                     </div>
                 </main>
             </div>
         </div>
+        <%@include file="../../resources/footer.jsp"%>
     </body>
 </html>
