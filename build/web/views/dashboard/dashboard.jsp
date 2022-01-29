@@ -10,7 +10,7 @@
     title = "Disaster Information Relief System - Dashboard";
     nav_dashboard = "active";
     nav_users = "";
-    nav_heatmap = "";
+    nav_ec = "";
     nav_disaster = "";
     nav_relief = "";
 %>

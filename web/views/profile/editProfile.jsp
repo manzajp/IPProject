@@ -4,7 +4,7 @@
     title = "Disaster Information Relief System - Profile";
     nav_dashboard = "";
     nav_users = "";
-    nav_heatmap = "";
+    nav_ec = "";
     nav_disaster = "";
     nav_relief = "";
 %>

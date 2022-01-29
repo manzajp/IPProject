@@ -24,6 +24,10 @@
         <servlet-name>usersController</servlet-name>
         <servlet-class>_controller.usersController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>evacController</servlet-name>
+        <servlet-class>_controller.evacController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relief</servlet-name>
         <url-pattern>/relief</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>usersController</servlet-name>
         <url-pattern>/usersController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>evacController</servlet-name>
+        <url-pattern>/evacController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -31,9 +31,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <%= nav_heatmap %>" href="<%= heatmap%>/map.jsp">
-                    <span data-feather="map"></span>
-                    Disaster Heat Map
+                <a class="nav-link <%= nav_ec %>" href="<%= root%>/evacController?request=index">
+                    <span data-feather="map-pin"></span>
+                    View Evacuation Centres
                 </a>
             </li>
             <li class="nav-item">
