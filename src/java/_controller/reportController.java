@@ -68,7 +68,7 @@ public class reportController extends HttpServlet {
                 ResultSet rs;
                 int id = Integer.parseInt(request.getParameter("id"));
                 report reportToView = new report(id, "", "", "", "", "");
-                String query = "SELECT * FROM report WHERE id = ?";
+                String query = "SELECT * FROM report WHERE reportID = ?";
                 
                 ps = con.prepareStatement(query);
                 ps.setInt(1, id);
@@ -114,7 +114,7 @@ public class reportController extends HttpServlet {
                 rs = ps.executeQuery();
                 
                 while (rs.next()){
-                    int id = rs.getInt("id");
+                    int id = rs.getInt("reportID");
                     String date = rs.getString("date");
                     String location = rs.getString("location");
                     String disaster_type = rs.getString("disaster_type");
@@ -130,7 +130,7 @@ public class reportController extends HttpServlet {
                 rs2 = ps.executeQuery();
                 
                 while (rs2.next()){
-                    int id = rs2.getInt("id");
+                    int id = rs2.getInt("reportID");
                     String date = rs2.getString("date");
                     String location = rs2.getString("location");
                     String disaster_type = rs2.getString("disaster_type");
@@ -205,7 +205,7 @@ public class reportController extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 String asst_type = request.getParameter("asst_type");
                 String asst_source = request.getParameter("asst_source");
-                String query = "UPDATE report SET  asst_type = ?, asst_source = ? WHERE id = ?";
+                String query = "UPDATE report SET  asst_type = ?, asst_source = ? WHERE reportID = ?";
                 
                 ps = con.prepareStatement(query);
                 ps.setString(1, asst_type);
@@ -233,7 +233,7 @@ public class reportController extends HttpServlet {
                 PreparedStatement ps;
                 ResultSet rs;
                 int id = Integer.parseInt(request.getParameter("id"));
-                String query = "DELETE FROM report WHERE id = ?";
+                String query = "DELETE FROM report WHERE reportID = ?";
                 
                 ps = con.prepareStatement(query);
                 ps.setInt(1,id);
