@@ -6,6 +6,7 @@
 package _controller;
 
 import _model.Relief;
+import _model.user;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -82,13 +84,13 @@ public class reliefController extends HttpServlet {
                     }
 
                     request.setAttribute("reliefs", reliefs);
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/admin/relief.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/relief.jsp");
                     rd.forward(request, response);
                 }
                 break;
             case "newForm": 
                 {
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/admin/create_relief.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/create_relief.jsp");
                     rd.forward(request,response);
                 }
                 break;
@@ -124,22 +126,25 @@ public class reliefController extends HttpServlet {
                     }
 
                     request.setAttribute("relief", _relief);
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/admin/view_relief.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/view_relief.jsp");
                     rd.forward(request, response);
                 }
                 break;
             case "create":
                 {
+                    HttpSession session = request.getSession();
+                    user thisUser = (user) session.getAttribute("currUser");
+                    
                     String
                         title = (String) request.getParameter("title"),
+                        userID = Integer.toString(thisUser.getId()),
                         description = (String) request.getParameter("description"),
                         location = (String) request.getParameter("location"),
                         startDate = (String) request.getParameter("startDate"),
                         endDate = (String) request.getParameter("endDate"),
                         state = (String) request.getParameter("state"),
-                        tablecol = "reliefs(name, userID, description, location, startDate, endDate, state)",
-                        values = "'" + title + "', '1', '" + description + "','" + location + "','" + startDate + "','" + endDate + "','" + state + "'",
-                        query = "INSERT INTO " + tablecol + " " + " VALUES(" + values + ")";
+                        values = "'" + title + "', '" + userID + "', '" + description + "','" + location + "','" + startDate + "','" + endDate + "','" + state + "'",
+                        query = "INSERT INTO reliefs(name, userID, description, location, startDate, endDate, state) VALUES(" + values + ")";
 
 
                     try {
@@ -151,10 +156,6 @@ public class reliefController extends HttpServlet {
                     try {
                         try (Connection con = DriverManager.getConnection(url, username, password); Statement st = con.createStatement()) {
                             st.executeUpdate(query);
-                            
-                            int insertStatus = 0;
-                            
-                            System.out.println(insertStatus + " row affected");
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,24 +195,26 @@ public class reliefController extends HttpServlet {
                     }
 
                     request.setAttribute("relief", _relief);
-                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/admin/edit_relief.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/views/relief/edit_relief.jsp");
                     rd.forward(request, response);
                 }
                 break;
             case "edit": 
                 {
+                    HttpSession session = request.getSession();
+                    user thisUser = (user) session.getAttribute("currUser");
+                    
                     String
                         query = "update reliefs set name = ?, userID = ?, description = ?, location = ?, startDate = ?, endDate = ?, state = ? where id = ?",
                         title = (String) request.getParameter("title"),
-                        userID = "1",
                         description = (String) request.getParameter("description"),
                         location = (String) request.getParameter("location"),
                         startDate = (String) request.getParameter("startDate"),
                         endDate = (String) request.getParameter("endDate"),
                         state = (String) request.getParameter("state"),
-                        id = (String) request.getParameter("id");
-                        
-                            
+                        id = (String) request.getParameter("id"),
+                        userId = Integer.toString(thisUser.getId());;
+                                                
                     try {
                         Class.forName(driver);
                     } catch (ClassNotFoundException ex) {
@@ -221,8 +224,9 @@ public class reliefController extends HttpServlet {
                     try {
                         Connection con = DriverManager.getConnection(url, username, password);
                         PreparedStatement  st = con.prepareStatement(query);
+                        
                         st.setString(1,title);
-                        st.setString(2,userID);
+                        st.setString(2,userId);
                         st.setString(3,description);
                         st.setString(4,location);
                         st.setString(5,startDate);
@@ -243,7 +247,32 @@ public class reliefController extends HttpServlet {
                 break;
             case "delete": 
                 {
+                    String
+                        query = "delete from reliefs where id = ?",
+                        id = (String) request.getParameter("id");
+                        
+                            
+                    try {
+                        Class.forName(driver);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    try {
+                        Connection con = DriverManager.getConnection(url, username, password);
+                        PreparedStatement  st = con.prepareStatement(query);
+                        st.setString(1,id);
+                        
+                        int insertStatus = st.executeUpdate();
+
+                        System.out.println(insertStatus + " row affected");
+                        con.close();
+                        st.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
+                    response.sendRedirect("relief?request=index");
                 }
                 break;
         }

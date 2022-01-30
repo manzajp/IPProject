@@ -1,5 +1,5 @@
 <%@page import="_model.Relief"%>
-<%@include file="../../../resources/prereq.jsp"%>
+<%@include file="_prereq.jsp"%>
 <%-- page settings --%>
 <%    
     title = "Disaster Information Relief System - Relief";
@@ -14,12 +14,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="../../../resources/head.jsp"%>
+    <%@include file="_head.jsp"%>
     <body>
-        <%@include file="../../../resources/header.jsp"%>
+        <%@include file="_header.jsp"%>
         <div class="container-fluid">
             <div class="row">
-                <%@include file="../../../resources/sidebar.jsp"%>
+                <%@include file="_sidebar.jsp"%>
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h2>Relief</h2>
@@ -54,18 +54,25 @@
                     </div>
                     <% 
                         user thisUser = (user) session.getAttribute("currUser");
-                        if (thisUser.getUserType().equals("admin")){ 
+                        if (thisUser.getUserType().equals("agency") || thisUser.getUserType().equals("admin")){ 
                     %>
                             <div class="row justify-content-center">
                                 <div class="col-1"><a href="?request=editForm&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Edit</a></div>
-                                <div class="col-1"><a href="?request=delete&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Delete</a></div>
-                            </div>
+                                
                     <% 
                         }
                     %>
+                            <% 
+                                if (thisUser.getUserType().equals("admin")){ 
+                            %>
+                                <div class="col-1"><a onclick="return confirm('Are you sure about deleting this relief?')" href="?request=delete&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Delete</a></div>
+                            <% 
+                                }
+                            %>
+                            </div>
                 </main>
             </div>
         </div>
-        <%@include file="../../../resources/footer.jsp"%>
+        <%@include file="_footer.jsp"%>
     </body>
 </html>
