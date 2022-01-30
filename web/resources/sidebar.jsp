@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <%= nav_disaster %>" href="<%= disaster%>/report.jsp">
+                <a class="nav-link <%= nav_disaster %>" href="<%= disaster%>/reportController?request=index">
                     <span data-feather="alert-circle"></span>
                     Report a Disaster
                 </a>
