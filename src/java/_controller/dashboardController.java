@@ -190,13 +190,11 @@ public class dashboardController extends HttpServlet {
                 ResultSet rs;
                 ArrayList<report> monthReports = new ArrayList<>();
                 java.sql.Date currDate = new java.sql.Date(System.currentTimeMillis());
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(currDate);
                 String query = "SELECT * FROM report WHERE year(date) = year(?) AND month(date) = month(?)";
                 
                 ps = con.prepareStatement(query);
-                ps.setInt(1, cal.get(Calendar.YEAR));
-                ps.setInt(2, cal.get(Calendar.MONTH));
+                ps.setDate(1, currDate);
+                ps.setDate(2, currDate);
                 rs = ps.executeQuery();
                 
                 while (rs.next()){
@@ -233,12 +231,10 @@ public class dashboardController extends HttpServlet {
                 ResultSet rs;
                 ArrayList<report> yearReports = new ArrayList<>();
                 java.sql.Date currDate = new java.sql.Date(System.currentTimeMillis());
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(currDate);
-                String query = "SELECT * FROM report WHERE year(date) = year(?)";
+                String query = "SELECT * FROM report WHERE YEAR(date) = YEAR(?)";
                 
                 ps = con.prepareStatement(query);
-                ps.setInt(1, cal.get(Calendar.YEAR));
+                ps.setDate(1, currDate);
                 rs = ps.executeQuery();
                 
                 while (rs.next()){

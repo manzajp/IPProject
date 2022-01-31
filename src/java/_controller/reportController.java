@@ -160,7 +160,7 @@ public class reportController extends HttpServlet {
                 Connection con = DriverManager.getConnection(url, username, password);
                 
                 PreparedStatement ps;
-                String date = request.getParameter("date");
+                java.sql.Date currDate = new java.sql.Date(System.currentTimeMillis());
                 String location = request.getParameter("location");
                 String disaster_type = request.getParameter("disaster_type");
                 String asst_type = request.getParameter("asst_type");
@@ -168,7 +168,7 @@ public class reportController extends HttpServlet {
                 String query = "INSERT INTO report (date, location, disaster_type, asst_type, asst_source) VALUES (?,?,?,?,?)";
                 
                 ps = con.prepareStatement(query);
-                ps.setString(1, date);
+                ps.setDate(1, currDate);
                 ps.setString(2, location);
                 ps.setString(3, disaster_type);
                 ps.setString(4, asst_type);

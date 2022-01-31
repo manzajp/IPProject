@@ -16,11 +16,18 @@
     user thisUser = (user) session.getAttribute("currUser");
 %>    
 
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <%@include file="../../resources/head.jsp"%>
-    <body>
+    <script>
+        function setDate(){
+            document.getElementById('date').valueAsDate = new Date();
+        }
+    </script>
+    <body onload="setDate();">
         <%@include file="../../resources/header.jsp"%>
 
         <div class="container-fluid">
@@ -68,8 +75,10 @@
                                 <div>
                                     <table class="table table-bordered">
                                         <tr>
+                                            
                                             <td class="table-dark col-2">Date</td>
-                                            <td><input name="date" id="date" type="date" max="" class="form-control" aria-describedby="dateHelp" placeholder="Enter a date">
+                                            <td><input name="date" id="date" type="date" max="" class="form-control" aria-describedby="dateHelp" placeholder="Enter a date" disabled value="">
+                                            
                                         </tr>
                                         <tr>
                                             <td class="table-dark col-2">Location</td>
