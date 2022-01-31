@@ -69,7 +69,7 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <td class="table-dark col-2">Date</td>
-                                            <td><input name="date" id="date" type="date" class="form-control" aria-describedby="dateHelp" placeholder="Enter a date">
+                                            <td><input name="date" id="date" type="date" max="" class="form-control" aria-describedby="dateHelp" placeholder="Enter a date">
                                         </tr>
                                         <tr>
                                             <td class="table-dark col-2">Location</td>

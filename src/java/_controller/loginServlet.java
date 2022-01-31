@@ -96,7 +96,7 @@ public class loginServlet extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("views/login/login.jsp");
                     rd.forward(request, response);
                 } else {
-                    RequestDispatcher rd = request.getRequestDispatcher("views/dashboard/dashboard.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("dashboardController?request=start");
                     rd.forward(request, response);
                 }
             } catch (SQLException ex) {

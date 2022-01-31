@@ -32,6 +32,10 @@
         <servlet-name>reportController</servlet-name>
         <servlet-class>_controller.reportController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>dashboardController</servlet-name>
+        <servlet-class>_controller.dashboardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>relief</servlet-name>
         <url-pattern>/relief</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>reportController</servlet-name>
         <url-pattern>/reportController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dashboardController</servlet-name>
+        <url-pattern>/dashboardController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
