@@ -53,24 +53,26 @@
                             </tr>
                         </table>
                     </div>
-                    <div>
-                        <table class="table table-bordered">
-                            <tr class="table-dark col-2">
-                                <td>Users</td>
-                            </tr>
-                            <% if(usersReliefs != null){ %>
-                                <% for(int i = 0; i < usersReliefs.size(); i++){ %>
+                    <% if (thisUser.getUserType().equals("agency") || thisUser.getUserType().equals("admin")){ %>
+                        <div>
+                            <table class="table table-bordered">
+                                <tr class="table-dark col-2">
+                                    <td>Users</td>
+                                </tr>
+                                <% if(usersReliefs != null){ %>
+                                    <% for(int i = 0; i < usersReliefs.size(); i++){ %>
+                                        <tr>
+                                            <td><%= usersReliefs.get(i) %></td>
+                                        </tr>
+                                    <% } %>
+                                <% } else { %>
                                     <tr>
-                                        <td><%= usersReliefs.get(i) %></td>
+                                        <td>No Users</td>
                                     </tr>
                                 <% } %>
-                            <% } else { %>
-                                <tr>
-                                    <td>No Users</td>
-                                </tr>
-                            <% } %>
-                        </table>
-                    </div>
+                            </table>
+                        </div>
+                    <% } %>
                     <div class="row justify-content-between">
                             <div class="col-2"><a href="relief?request=index" class="btn btn-dark btn-block active" role="button" aria-pressed="true">Return to List of Reliefs</a></div>
                         <% if (thisUser.getUserType().equals("agency") || thisUser.getUserType().equals("admin")){ %>
