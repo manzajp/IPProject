@@ -55,16 +55,22 @@
                                         <td><%= reliefs.get(i).getStartDate() %></td>  
                                         <td><%= reliefs.get(i).getState() %></td>  
                                         <td><%= noUserReliefs.get(i) %></td>
-                                        <% if ((j < userReliefs.size()) && (reliefs.get(i).getId() ==  userReliefs.get(j))) { %>
+                                        <% if (reliefs.get(i).getState().equals("Active")) { %>
+                                            <% if ((j < userReliefs.size()) && (reliefs.get(i).getId() ==  userReliefs.get(j))) { %>
+                                                    <td>
+                                                        <a class="btn btn-dark col-12 disabled" href="#" role="button" aria-disabled="true">Joined</a>
+                                                    </td>
+                                                    <% j++; %>
+                                            <% } else { %>
                                                 <td>
-                                                    <a class="btn btn-dark col-12 disabled" href="#" role="button" aria-disabled="true">Joined</a>
+                                                    <a class="btn btn-dark col-12" onclick="return confirm('You want to apply for this relief?')" href="relief?request=join&id=<%= reliefs.get(i).getId() %>" role="button">Join</a>
                                                 </td>
-                                                <% j++; %>
+                                            <% } %>                                        
                                         <% } else { %>
                                             <td>
-                                                <a class="btn btn-dark col-12" onclick="return confirm('You want to apply for this relief?')" href="relief?request=join&id=<%= reliefs.get(i).getId() %>" role="button">Join</a>
+                                                <a class="btn btn-dark col-12 disabled" href="#" role="button" aria-disabled="true">Cannot Join</a>
                                             </td>
-                                        <% } %>
+                                        <% } %> 
                                     </tr>
                                 <% } %>
                             </tbody>

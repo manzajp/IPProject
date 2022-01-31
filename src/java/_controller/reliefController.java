@@ -149,6 +149,26 @@ public class reliefController extends HttpServlet {
                             _relief.setEndDate(rs.getString("endDate"));
                             _relief.setState(rs.getString("state"));
                         }
+                        request.setAttribute("relief", _relief);
+                        
+                        query = "select * from user_reliefs where reliefId = " + id;
+                        rs = st.executeQuery(query);
+                        ArrayList<Integer> usersofReliefs = new ArrayList<>();
+                        while(rs.next()){
+                            usersofReliefs.add(rs.getInt("userId"));
+                            System.out.println(rs.getInt("userId"));
+                        }
+                        
+                        ArrayList<String> usersReliefs = new ArrayList<>();
+                        for(int i = 0; i < usersofReliefs.size(); i++){
+                            query = "select * from users where id = " + usersofReliefs.get(i);
+                            rs = st.executeQuery(query);
+                            while(rs.next()){
+                                usersReliefs.add(rs.getString("username"));
+                                System.out.println(rs.getString("username"));
+                            }
+                        }
+                        request.setAttribute("usersReliefs", usersReliefs);
                             
                         con.close();
                         st.close();
@@ -157,7 +177,6 @@ public class reliefController extends HttpServlet {
                         Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    request.setAttribute("relief", _relief);
                     RequestDispatcher rd = request.getRequestDispatcher("/views/relief/view_relief.jsp");
                     rd.forward(request, response);
                 }

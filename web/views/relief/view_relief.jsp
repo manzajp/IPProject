@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="_model.Relief"%>
 <%@include file="_prereq.jsp"%>
 <%-- page settings --%>
@@ -9,6 +10,7 @@
 <%-- servlet get --%>
 <% user thisUser = (user) session.getAttribute("currUser"); %>
 <% Relief _relief = (Relief) request.getAttribute("relief"); %>
+<% ArrayList<String> usersReliefs = (ArrayList<String>) request.getAttribute("usersReliefs"); %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,6 +51,24 @@
                                 <td class="table-dark col-2">Active State</td>
                                 <td><%= _relief.getState() %></td>
                             </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table table-bordered">
+                            <tr class="table-dark col-2">
+                                <td>Users</td>
+                            </tr>
+                            <% if(usersReliefs != null){ %>
+                                <% for(int i = 0; i < usersReliefs.size(); i++){ %>
+                                    <tr>
+                                        <td><%= usersReliefs.get(i) %></td>
+                                    </tr>
+                                <% } %>
+                            <% } else { %>
+                                <tr>
+                                    <td>No Users</td>
+                                </tr>
+                            <% } %>
                         </table>
                     </div>
                     <div class="row justify-content-between">
