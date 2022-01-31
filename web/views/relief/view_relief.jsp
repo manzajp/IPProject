@@ -7,9 +7,8 @@
 %>
 
 <%-- servlet get --%>
-<%    
-    Relief _relief = (Relief) request.getAttribute("relief");
-%>
+<% user thisUser = (user) session.getAttribute("currUser"); %>
+<% Relief _relief = (Relief) request.getAttribute("relief"); %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,24 +51,15 @@
                             </tr>
                         </table>
                     </div>
-                    <% 
-                        user thisUser = (user) session.getAttribute("currUser");
-                        if (thisUser.getUserType().equals("agency") || thisUser.getUserType().equals("admin")){ 
-                    %>
-                            <div class="row justify-content-center">
-                                <div class="col-1"><a href="?request=editForm&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Edit</a></div>
-                                
-                    <% 
-                        }
-                    %>
-                            <% 
-                                if (thisUser.getUserType().equals("admin")){ 
-                            %>
-                                <div class="col-1"><a onclick="return confirm('Are you sure about deleting this relief?')" href="?request=delete&id=<%= _relief.getId() %>" class="btn btn-primary btn-block active" role="button" aria-pressed="true">Delete</a></div>
-                            <% 
-                                }
-                            %>
-                            </div>
+                    <div class="row justify-content-between">
+                            <div class="col-2"><a href="relief?request=index" class="btn btn-dark btn-block active" role="button" aria-pressed="true">Return to List of Reliefs</a></div>
+                        <% if (thisUser.getUserType().equals("agency") || thisUser.getUserType().equals("admin")){ %>
+                            <div class="col-2"><a href="relief?request=editForm&id=<%= _relief.getId() %>" class="btn btn-dark btn-block active" role="button" aria-pressed="true">Edit</a></div>
+                        <% } %>
+                        <% if (thisUser.getUserType().equals("admin")){ %>
+                            <div class="col-2"><a onclick="return confirm('Are you sure about deleting this relief?')" href="relief?request=delete&id=<%= _relief.getId() %>" class="btn btn-dark btn-block active" role="button" aria-pressed="true">Delete</a></div>
+                        <% } %>
+                    </div>
                 </main>
             </div>
         </div>
