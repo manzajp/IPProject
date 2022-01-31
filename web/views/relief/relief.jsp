@@ -11,7 +11,9 @@
 <%-- servlet get --%>
 <%    
     ArrayList<Relief> reliefs = (ArrayList<Relief>) request.getAttribute("reliefs");
-    user userToView = (user) session.getAttribute("userToView");
+    ArrayList<Integer> userReliefs = (ArrayList<Integer>) request.getAttribute("userReliefs");
+    ArrayList<Integer> noUserReliefs = (ArrayList<Integer>) request.getAttribute("noUserReliefs");
+    user thisUser = (user) session.getAttribute("currUser");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,24 +40,37 @@
                                     <td>Location</td>
                                     <td>Date</td>
                                     <td>Active State</td>
+                                    <td>No of Users</td>
+                                    <td>Joined</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- loop -->
+                                <% int j = 0; %>
                                 <% for(int i = 0; i < reliefs.size(); i++) {%>
-                                <tr onclick="window.location = 'relief?request=view&id=<%= reliefs.get(i).getId() %>';">
-                                    <td><%= reliefs.get(i).getTitle() %></td>
-                                    <td><%= reliefs.get(i).getDescription() %></td>
-                                    <td><%= reliefs.get(i).getLocation() %></td>
-                                    <td><%= reliefs.get(i).getStartDate() %></td>  
-                                    <td><%= reliefs.get(i).getState() %></td>  
-                                </tr>
+                                    <tr onclick="window.location = 'relief?request=view&id=<%= reliefs.get(i).getId() %>';">
+                                        <td><%= reliefs.get(i).getTitle() %></td>
+                                        <td><%= reliefs.get(i).getDescription() %></td>
+                                        <td><%= reliefs.get(i).getLocation() %></td>
+                                        <td><%= reliefs.get(i).getStartDate() %></td>  
+                                        <td><%= reliefs.get(i).getState() %></td>  
+                                        <td><%= noUserReliefs.get(i) %></td>
+                                        <% if ((j < userReliefs.size()) && (reliefs.get(i).getId() ==  userReliefs.get(j))) { %>
+                                                <td>
+                                                    <a class="btn btn-dark col-12 disabled" href="#" role="button" aria-disabled="true">Joined</a>
+                                                </td>
+                                                <% j++; %>
+                                        <% } else { %>
+                                            <td>
+                                                <a class="btn btn-dark col-12" onclick="return confirm('You want to apply for this relief?')" href="relief?request=join&id=<%= reliefs.get(i).getId() %>" role="button">Join</a>
+                                            </td>
+                                        <% } %>
+                                    </tr>
                                 <% } %>
                             </tbody>
                         </table>
                     </div>
                     <% 
-                        user thisUser = (user) session.getAttribute("currUser");
                         if (thisUser.getUserType().equals("admin") || thisUser.getUserType().equals("agency")){ %>
                             <div>
                                 <a class="btn btn-dark" href="relief?request=newForm" role="button">Add</a>
