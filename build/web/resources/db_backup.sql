@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2022 at 05:25 AM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- Generation Time: Jan 31, 2022 at 05:27 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -114,6 +114,18 @@ INSERT INTO `users` (`id`, `username`, `password`, `userType`) VALUES
 (3, 'admin2', 'admin321', 'admin'),
 (4, 'agency1', 'agent123', 'agency');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_reliefs`
+--
+
+CREATE TABLE `user_reliefs` (
+  `id` int(3) NOT NULL,
+  `userId` int(3) NOT NULL,
+  `reliefId` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -144,6 +156,14 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_reliefs`
+--
+ALTER TABLE `user_reliefs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userId_fk` (`userId`),
+  ADD KEY `reliefId_fk` (`reliefId`) USING BTREE;
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -172,6 +192,12 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `user_reliefs`
+--
+ALTER TABLE `user_reliefs`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -180,6 +206,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `reliefs`
   ADD CONSTRAINT `reliefs_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `user_reliefs`
+--
+ALTER TABLE `user_reliefs`
+  ADD CONSTRAINT `reliefId_fk` FOREIGN KEY (`reliefId`) REFERENCES `reliefs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userId_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

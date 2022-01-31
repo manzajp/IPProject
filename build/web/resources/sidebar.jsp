@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link <%= nav_dashboard%>" href="<%= dashboard%>/dashboard.jsp">
+                <a class="nav-link <%= nav_dashboard%>" href="<%= root %>/dashboardController?request=start">
                     <span data-feather="home"></span>
                     Dashboard
                 </a>
