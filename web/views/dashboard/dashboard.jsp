@@ -179,17 +179,17 @@
                                 </thead>
                                 <tbody>
                                     <% for(int i = 0; i < reliefs.size(); i++) {%>
-                                            <tr onclick="window.location = '<%= root %>/reliefController?request=view&id=<%= reliefs.get(i).getId() %>';">
-                                                <td><%= reliefs.get(i).getId() %></td>
-                                                <td><%= reliefs.get(i).getTitle() %></td>
-                                                <td><%= reliefs.get(i).getUser() %></td>
-                                                <td><%= reliefs.get(i).getDescription()%></td>
-                                                <td><%= reliefs.get(i).getLocation() %></td>
-                                                <td><%= reliefs.get(i).getStartDate() %></td>
-                                                <td><%= reliefs.get(i).getEndDate() %></td>
-                                                <td><%= reliefs.get(i).getState() %></td>
-                                            </tr>
-                                        <% } %>
+                                        <tr onclick="window.location = '<%= root %>/relief?request=view&id=<%= reliefs.get(i).getId() %>';">
+                                            <td><%= reliefs.get(i).getId() %></td>
+                                            <td><%= reliefs.get(i).getTitle() %></td>
+                                            <td><%= reliefs.get(i).getUser() %></td>
+                                            <td><%= reliefs.get(i).getDescription()%></td>
+                                            <td><%= reliefs.get(i).getLocation() %></td>
+                                            <td><%= reliefs.get(i).getStartDate() %></td>
+                                            <td><%= reliefs.get(i).getEndDate() %></td>
+                                            <td><%= reliefs.get(i).getState() %></td>
+                                        </tr>
+                                    <% } %>
                                 </tbody>
                             </table>
                         <% } else { %>

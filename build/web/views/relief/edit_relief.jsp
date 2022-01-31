@@ -39,19 +39,23 @@
                                   alert("Title must be filled out!");
                                   return false;
                                 } 
-                                if (description == "") {
+                                else if (description == "") {
                                   alert("Description must be filled out!");
                                   return false;
                                 }
-                                if (startDate == "") {
+                                else if (startDate == "") {
                                   alert("Start date must be filled out!");
                                   return false;
                                 }
-                                if (endDate == "") {
+                                else if (endDate == "") {
                                   alert("End date must be filled out!");
                                   return false;
                                 }
-                                if (state == "") {
+                                else if (endDate <= startDate) {
+                                  alert("End date must at least 1 day after the start date!");
+                                  return false;
+                                }
+                                else if (state == "") {
                                   alert("State must be filled out!");
                                   return false;
                                 }
