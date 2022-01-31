@@ -67,7 +67,7 @@ public class reportController extends HttpServlet {
                 PreparedStatement ps;
                 ResultSet rs;
                 int id = Integer.parseInt(request.getParameter("id"));
-                report reportToView = new report(id, "", "", "", "", "");
+                report reportToView = new report(id, null, "", "", "", "");
                 String query = "SELECT * FROM report WHERE reportID = ?";
                 
                 ps = con.prepareStatement(query);
@@ -75,7 +75,7 @@ public class reportController extends HttpServlet {
                 rs = ps.executeQuery();
                 
                 while (rs.next()){
-                    reportToView.setDate(rs.getString("date"));
+                    reportToView.setDate(rs.getDate("date"));
                     reportToView.setLocation(rs.getString("location"));
                     reportToView.setDisaster_type(rs.getString("disaster_type"));
                     reportToView.setAsst_type(rs.getString("asst_type"));
@@ -101,21 +101,20 @@ public class reportController extends HttpServlet {
             try {
                 Connection con = DriverManager.getConnection(url, username, password);
                 
-                PreparedStatement ps, ps2;
-                ResultSet rs, rs2;
-                ArrayList<report> todayReports = new ArrayList<report>();
-                ArrayList<report> pastReports = new ArrayList<report>();
-                String currDate = java.time.LocalDate.now().toString();
+                PreparedStatement ps;
+                ResultSet rs;
+                ArrayList<report> todayReports = new ArrayList<>();
+                ArrayList<report> pastReports = new ArrayList<>();
+                java.sql.Date currDate = new java.sql.Date(System.currentTimeMillis());
                 String query = "SELECT * FROM report WHERE date = ?";
-                String query2 = "SELECT * FROM report WHERE date < ?";
 
                 ps = con.prepareStatement(query);
-                ps.setString(1, currDate);
+                ps.setDate(1, currDate);
                 rs = ps.executeQuery();
                 
                 while (rs.next()){
                     int id = rs.getInt("reportID");
-                    String date = rs.getString("date");
+                    java.sql.Date date = rs.getDate("date");
                     String location = rs.getString("location");
                     String disaster_type = rs.getString("disaster_type");
                     String asst_type = rs.getString("asst_type");
@@ -123,23 +122,21 @@ public class reportController extends HttpServlet {
                     todayReports.add(new report(id, date, location, disaster_type, asst_type, asst_source));
                 }
                 
-                ps.close();
+                String query2 = "SELECT * FROM report WHERE date < ?";
+                ps = con.prepareStatement(query2);
+                ps.setDate(1, currDate);
+                rs = ps.executeQuery();
                 
-                ps2 = con.prepareStatement(query2);
-                ps2.setString(1, currDate);
-                rs2 = ps.executeQuery();
-                
-                while (rs2.next()){
-                    int id = rs2.getInt("reportID");
-                    String date = rs2.getString("date");
-                    String location = rs2.getString("location");
-                    String disaster_type = rs2.getString("disaster_type");
-                    String asst_type = rs2.getString("asst_type");
-                    String asst_source = rs2.getString("asst_source");
+                while (rs.next()){
+                    int id = rs.getInt("reportID");
+                    java.sql.Date date = rs.getDate("date");
+                    String location = rs.getString("location");
+                    String disaster_type = rs.getString("disaster_type");
+                    String asst_type = rs.getString("asst_type");
+                    String asst_source = rs.getString("asst_source");
                     pastReports.add(new report(id, date, location, disaster_type, asst_type, asst_source));
                 }
                 
-                ps2.close();
                 con.close();
                 
                 session.setAttribute("todayReports", todayReports);

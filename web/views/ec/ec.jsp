@@ -41,7 +41,9 @@
                                     <td>Centre ID</td>
                                     <td>Centre Name</td>
                                     <td>Location</td>
-                                    <td>Capacity</td>
+                                    <td>Current Capacity</td>
+                                    <td>Max Capacity</td>
+                                    <td>Activity</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,6 +54,8 @@
                                         <td><%= ecentres.get(i).getCentreName() %></td>
                                         <td><%= ecentres.get(i).getCentreLoc() %></td>
                                         <td><%= ecentres.get(i).getCapacity() %></td>
+                                        <td><%= ecentres.get(i).getMaxCapacity() %></td>
+                                        <td><%= ecentres.get(i).getActivity() %></td>
                                     </tr>
                                 <%  } %>
                             </tbody>
@@ -63,9 +67,6 @@
                             
                             if (thisUser.getUserType().equals("admin")){ %>
                                 <a class="btn btn-dark" href="<%= root %>/evacController?request=addForm" role="button">Add</a>
-                            <% }
-                            else if (thisUser.getUserType().equals("agency")){ %>
-                                <a class="btn btn-dark" href="<%= root %>/evacController?request=editForm_agency" role="button">Update</a>
                             <% }
                         %>
                         

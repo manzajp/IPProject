@@ -17,23 +17,34 @@ public class EvacCentre implements Serializable{
     protected String centreLoc;
     protected int capacity;
     protected int maxCapacity;
+    protected String activity;
 
     public EvacCentre() {
     }
 
-    public EvacCentre(int id, String centreName, String centreLoc, int capacity, int maxCapcity) {
+    public EvacCentre(int id, String centreName, String centreLoc, int capacity, int maxCapacity, String activity) {
         this.id = id;
         this.centreName = centreName;
         this.centreLoc = centreLoc;
         this.capacity = capacity;
         this.maxCapacity = maxCapacity;
+        this.activity = activity;
     }
 
-    public EvacCentre(String centreName, String centreLoc, int capacity, int maxCapacity ) {
+    public EvacCentre(String centreName, String centreLoc, int capacity, int maxCapacity, String activity) {
         this.centreName = centreName;
         this.centreLoc = centreLoc;
         this.capacity = capacity;
         this.maxCapacity = maxCapacity;
+        this.activity = activity;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 
     public EvacCentre(int id) {

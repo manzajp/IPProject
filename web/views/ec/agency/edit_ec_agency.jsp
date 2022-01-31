@@ -45,9 +45,14 @@
                         <script>
                             function formValidate(){
                                 let capacity = document.forms["ecentreEditForm"]["capacity"].value;
+                                let activity = document.forms["ecentreEditForm"]["activity"].value;
                                 
                                 if (capacity === "") {
                                   alert("Capacity must be filled out!");
+                                  return false;
+                                }
+                                if (activity === "") {
+                                  alert("Activity must be filled out!");
                                   return false;
                                 }
                                 return true;
@@ -58,16 +63,17 @@
                                 <div>
                                     <table class="table table-bordered">
                                         <tr>
-                                            <td class="table-dark col-2">Centre Name</td>
-                                            <td><input name="centreName" id="centreName" type="text" class="form-control" aria-describedby="centreNameHelp" placeholder="Enter new centre name" value="<%= ecentreToEdit.getCentreName() %>" disabled="true"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-dark col-2">Max Capacity</td>
-                                            <td><input name="maxCapacity" id="maxCapacity" type="number" class="form-control" aria-describedby="maxCapacityHelp" placeholder="Enter new max capacity" value="<%= ecentreToEdit.getMaxCapacity()%>" disabled="true"></td>
-                                        </tr>
-                                        <tr>
                                             <td class="table-dark col-2">Capacity</td>
                                             <td><input name="capacity" id="capacity" type="number" class="form-control" aria-describedby="capacityHelp" placeholder="Enter new capacity" value="<%= ecentreToEdit.getCapacity()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-dark col-2">Activity</td>
+                                            <td>
+                                            <select name="activity" id="activity" class="form-control" aria-describedby="activityHelp" placeholder="Active/Inactive">
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                            </select>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>

@@ -93,16 +93,8 @@
                         </table>
                     </div>
                     <div>
-                        <% 
-                            user thisUser = (user) session.getAttribute("currUser");
-                            
-                            if (thisUser.getUserType().equals("user")){ %>
+                        
                                 <a class="btn btn-dark" href="<%= root %>/reportController?request=addForm" role="button">Add</a>
-                            <% }
-                            else if (thisUser.getUserType().equals("admin")){ %>
-                                <a class="btn btn-dark" href="<%= root %>/reportController?request=delete" role="button">Delete</a>
-                            <% }
-                        %>
                         
                     </div>
                 </main>

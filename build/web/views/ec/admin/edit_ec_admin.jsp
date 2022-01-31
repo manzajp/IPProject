@@ -39,13 +39,16 @@
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h2>Edit User</h2>
+                        <h2>Edit Evacuation Centre</h2>
                     </div>
                     <div>
                         <script>
                             function formValidate(){
                                 let centreName = document.forms["ecentreEditForm"]["centreName"].value;
                                 let centreLoc = document.forms["ecentreEditForm"]["centreLoc"].value;
+                                let capacity = document.forms["ecentreEditForm"]["capacity"].value;
+                                let maxCapacity = document.forms["ecentreEditForm"]["maxCapacity"].value;
+                                let activity = document.forms["ecentreEditForm"]["activity"].value;
                                 
                                 if (centreName === "") {
                                   alert("Centre name must be filled out!");
@@ -55,10 +58,22 @@
                                   alert("Location must be selected!");
                                   return false;
                                 }
+                                if (capacity === "") {
+                                  alert("Capacity must be filled out!");
+                                  return false;
+                                } 
+                                if (maxCapacity === "") {
+                                  alert("Maximum capacity must be filled out!");
+                                  return false;
+                                } 
+                                if (activity === "") {
+                                  alert("Activity must be filled out!");
+                                  return false;
+                                } 
                                 return true;
                             }
                         </script>
-                        <form name="ecentreEditForm" onsubmit="return formValidate()" action="<%= root %>/evacController?request=edit&id=<%= id %>" method="POST">
+                        <form name="ecentreEditForm" onsubmit="return formValidate()" action="<%= root %>/evacController?request=edit_admin&id=<%= id %>" method="POST">
                             <div class="form-group">
                                 <div>
                                     <table class="table table-bordered">
@@ -90,8 +105,21 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td class="table-dark col-2">Current Capacity</td>
+                                            <td><input name="capacity" id="capacity" type="number" class="form-control" aria-describedby="capacityHelp" placeholder="Enter new capacity" value="<%= ecentreToEdit.getCapacity()%>"></td>
+                                        </tr>
+                                        <tr>
                                             <td class="table-dark col-2">Max Capacity</td>
-                                            <td><input name="maxCapacity" id="maxCapacity" type="number" class="form-control" aria-describedby="maCapacityHelp" placeholder="Enter new max capacity" value="<%= ecentreToEdit.getMaxCapacity()%>"></td>
+                                            <td><input name="maxCapacity" id="maxCapacity" type="number" class="form-control" aria-describedby="maxCapacityHelp" placeholder="Enter new max capacity" value="<%= ecentreToEdit.getMaxCapacity()%>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-dark col-2">Activity</td>
+                                            <td>
+                                            <select name="activity" id="activity" class="form-control" aria-describedby="activityHelp" placeholder="Active/Inactive">
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                            </select>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>

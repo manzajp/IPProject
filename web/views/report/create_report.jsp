@@ -5,7 +5,7 @@
 --%>
 <%@page import="_model.user"%>
 <%@page import="_model.report"%>
-<%@include file="../../../resources/prereq.jsp"%>
+<%@include file="../../resources/prereq.jsp"%>
 <%-- page settings --%>
 <%   
     title = "Disaster Information Relief System - Reports";
@@ -14,22 +14,18 @@
 
 <%
     user thisUser = (user) session.getAttribute("currUser");
-    if (!thisUser.getUserType().equals("user")){
-        String dash = "0; url='" + request.getContextPath() + "/views/dashboard/dashboard.jsp'"; %>
-        <meta http-equiv="Refresh" content="<%= dash %>" /> <%
-    }
 %>    
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="../../../resources/head.jsp"%>
+    <%@include file="../../resources/head.jsp"%>
     <body>
-        <%@include file="../../../resources/header.jsp"%>
+        <%@include file="../../resources/header.jsp"%>
 
         <div class="container-fluid">
             <div class="row">
-                <%@include file="../../../resources/sidebar.jsp"%>
+                <%@include file="../../resources/sidebar.jsp"%>
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -118,10 +114,13 @@
                                         </tr>
                                         <tr>
                                             <td class="table-dark col-2">Assistance Source</td>
+                                            <td>
                                                 <select name="asst_source" id="asst_source" class="form-control" aria-describedby="asst_sourceHelp" placeholder="Select the assistance source preferred">
                                                     <option value="Community">Community</option>
                                                     <option value="Agencies">Agencies</option>
-                                                </select>                                        
+                                                    <option value="Agencies">Government</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -137,6 +136,6 @@
             </div>
         </div>
 
-        <%@include file="../../../resources/footer.jsp"%>
+        <%@include file="../../resources/footer.jsp"%>
     </body>
 </html>

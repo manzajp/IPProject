@@ -6,6 +6,7 @@
 package _model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  *
@@ -14,13 +15,13 @@ import java.io.Serializable;
 public class report implements Serializable{
     
     protected int id;
-    protected String date;
+    protected java.sql.Date date;
     protected String location;
     protected String disaster_type;
     protected String asst_type;
     protected String asst_source;
 
-    public report(int id, String date, String location, String disaster_type, String asst_type, String asst_source) {
+    public report(int id, java.sql.Date date, String location, String disaster_type, String asst_type, String asst_source) {
         this.id = id;
         this.date = date;
         this.location = location;
@@ -29,7 +30,7 @@ public class report implements Serializable{
         this.asst_source = asst_source;
     }
 
-    public report(String date, String location, String disaster_type, String asst_type, String asst_source) {
+    public report(java.sql.Date date, String location, String disaster_type, String asst_type, String asst_source) {
         this.date = date;
         this.location = location;
         this.disaster_type = disaster_type;
@@ -37,11 +38,11 @@ public class report implements Serializable{
         this.asst_source = asst_source;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

@@ -51,6 +51,14 @@
                                 <td class="table-dark col-2">Capacity:</td>
                                 <td><%= ecentreToView.getCapacity() %></td>
                             </tr>
+                            <tr>
+                                <td class="table-dark col-2">Max Capacity:</td>
+                                <td><%= ecentreToView.getMaxCapacity() %></td>
+                            </tr>
+                            <tr>
+                                <td class="table-dark col-2">Max Capacity:</td>
+                                <td><%= ecentreToView.getActivity() %></td>
+                            </tr>
                         </table>
                     </div>
                     <div class="row justify-content-center">

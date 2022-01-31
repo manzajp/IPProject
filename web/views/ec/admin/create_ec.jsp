@@ -92,6 +92,15 @@
                                             <td class="table-dark col-2">Max Capacity</td>
                                             <td><input name="maxCapacity" id="maxCapacity" type="number" class="form-control" aria-describedby="maxCapacityHelp" placeholder="Enter max capacity"></td>
                                         </tr>
+                                        <tr>
+                                            <td class="table-dark col-2">Activity</td>
+                                            <td>
+                                            <select name="activity" id="activity" class="form-control" aria-describedby="activityHelp" placeholder="Active/Inactive">
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                            </select>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>

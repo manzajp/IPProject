@@ -67,7 +67,7 @@ public class evacController extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 int capacity = 0;
                 int maxCapacity = 0;
-                EvacCentre ecentreToView = new EvacCentre(id, "", "", capacity, maxCapacity);
+                EvacCentre ecentreToView = new EvacCentre(id, "", "", capacity, maxCapacity, "");
                 String query = "SELECT * FROM ecentre WHERE id = ?";
                 
                 ps = con.prepareStatement(query);
@@ -79,6 +79,7 @@ public class evacController extends HttpServlet {
                     ecentreToView.setCentreLoc(rs.getString("centreLoc"));
                     ecentreToView.setCapacity(rs.getInt("capacity"));
                     ecentreToView.setMaxCapacity(rs.getInt("maxCapacity"));
+                    ecentreToView.setActivity(rs.getString("activity"));
                 }
                 
                 ps.close();
@@ -114,7 +115,8 @@ public class evacController extends HttpServlet {
                     String centreLoc = rs.getString("centreLoc");
                     int capacity = rs.getInt("capacity");
                     int maxCapacity = rs.getInt("maxCapacity");
-                    ecentres.add(new EvacCentre(id, centreName, centreLoc, capacity, maxCapacity));
+                    String activity = rs.getString("activity");
+                    ecentres.add(new EvacCentre(id, centreName, centreLoc, capacity, maxCapacity, activity));
                 }
                 
                 ps.close();
@@ -143,13 +145,15 @@ public class evacController extends HttpServlet {
                 String centreName = request.getParameter("centreName");
                 String centreLoc = request.getParameter("centreLoc");
                 int maxCapacity =  Integer.parseInt(request.getParameter("maxCapacity"));
-                String query = "INSERT INTO ecentre (centreName, centreLoc, capacity, maxCapacity) VALUES (?,?,?,?)";
+                String activity = request.getParameter("activity");
+                String query = "INSERT INTO ecentre (centreName, centreLoc, capacity, maxCapacity, activity) VALUES (?,?,?,?,?)";
                 
                 ps = con.prepareStatement(query);
                 ps.setString(1, centreName);
                 ps.setString(2, centreLoc);
                 ps.setInt(3, 0);
                 ps.setInt(4, maxCapacity);
+                ps.setString(5, activity);
                 ps.executeUpdate();
                 
                 ps.close();
@@ -180,13 +184,15 @@ public class evacController extends HttpServlet {
                 String centreName = request.getParameter("centreName");
                 String centreLoc = request.getParameter("centreLoc");
                 int maxCapacity =  Integer.parseInt(request.getParameter("maxCapacity"));
-                String query = "UPDATE ecentre SET centreName = ?, centreLoc = ?, maxCapacity = ? WHERE id = ?";
+                String activity = request.getParameter("activity");
+                String query = "UPDATE ecentre SET centreName = ?, centreLoc = ?, maxCapacity = ?, activity = ? WHERE id = ?";
                 
                 ps = con.prepareStatement(query);
                 ps.setString(1, centreName);
                 ps.setString(2, centreLoc);
                 ps.setInt(3, maxCapacity);
-                ps.setInt(4, id);
+                ps.setString(4, activity);
+                ps.setInt(5, id);
                 ps.executeUpdate();
                 
                 ps.close();
@@ -209,11 +215,13 @@ public class evacController extends HttpServlet {
                 PreparedStatement ps;
                 int id = Integer.parseInt(request.getParameter("id"));
                 int capacity =  Integer.parseInt(request.getParameter("capacity"));
-                String query = "UPDATE ecentre SET capacity = ? WHERE id = ?";
+                String activity = request.getParameter("activity");
+                String query = "UPDATE ecentre SET capacity = ?, activity = ? WHERE id = ?";
                 
                 ps = con.prepareStatement(query);
                 ps.setInt(1, capacity);
-                ps.setInt(2, id);
+                ps.setString(2, activity);
+                ps.setInt(3, id);
                 ps.executeUpdate();
                 
                 ps.close();
