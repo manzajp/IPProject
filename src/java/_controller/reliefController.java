@@ -40,7 +40,7 @@ public class reliefController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         
         // Database prereqs
@@ -55,10 +55,11 @@ public class reliefController extends HttpServlet {
         switch (reqType) {
             case "index": 
                 {
+                    HttpSession session = request.getSession();
+                    user thisUser = (user) session.getAttribute("currUser");
                     String query = "SELECT * FROM reliefs";
-
+                    ArrayList<Integer> userReliefs = new ArrayList<>();
                     ArrayList<Relief> reliefs = new ArrayList<>();
-                    Relief _relief;
 
                     try {
                         Class.forName(driver);
@@ -66,24 +67,52 @@ public class reliefController extends HttpServlet {
                         Statement st = con.createStatement() ;
                         ResultSet rs = st.executeQuery(query);
                             
+                        Relief _relief;
+                        while (rs.next()) {
+                            _relief = new Relief();
+                            _relief.setId(rs.getInt("id"));
+                            _relief.setTitle(rs.getString("name"));
+                            _relief.setUser(rs.getString("userID"));
+                            _relief.setDescription(rs.getString("description"));
+                            _relief.setLocation(rs.getString("location"));
+                            _relief.setStartDate(rs.getString("startDate"));
+                            _relief.setEndDate(rs.getString("endDate"));
+                            _relief.setState(rs.getString("state"));
+                            reliefs.add(_relief);
+                        }
+                        request.setAttribute("reliefs", reliefs);
+
+                        query = "select * from user_reliefs where userid = " + thisUser.getId();
+                        rs = st.executeQuery(query);
+                        while (rs.next()) {
+                            userReliefs.add(rs.getInt("reliefId"));
+                        }
+                        request.setAttribute("userReliefs", userReliefs);
+
+                        query = "select * from reliefs";
+                        rs = st.executeQuery(query);
+                        ArrayList<Integer> reliefType = new ArrayList<>();
+                        while(rs.next()){
+                            reliefType.add(rs.getInt("id"));
+                        }
+                        request.setAttribute("reliefType", reliefType);
+
+                        ArrayList<Integer> noUserReliefs = new ArrayList<>();
+                        for(int i = 0; i < reliefType.size(); i++){
+                            query = "select count(*) from user_reliefs where reliefId = " + reliefType.get(i);
+                            System.out.println(query);
+                            rs = st.executeQuery(query);
                             while (rs.next()) {
-                                _relief = new Relief();
-                                _relief.setId(rs.getInt("id"));
-                                _relief.setTitle(rs.getString("name"));
-                                _relief.setUser(rs.getString("userID"));
-                                _relief.setDescription(rs.getString("description"));
-                                _relief.setLocation(rs.getString("location"));
-                                _relief.setStartDate(rs.getString("startDate"));
-                                _relief.setEndDate(rs.getString("endDate"));
-                                _relief.setState(rs.getString("state"));
-                                reliefs.add(_relief);
+                                System.out.println(rs.getInt(1));
+                                noUserReliefs.add(rs.getInt(1));
                             }
-                        } 
+                        }
+                        request.setAttribute("noUserReliefs", noUserReliefs);
+                    } 
                     catch (SQLException | ClassNotFoundException ex) {
                         Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    request.setAttribute("reliefs", reliefs);
                     RequestDispatcher rd = request.getRequestDispatcher("/views/relief/relief.jsp");
                     rd.forward(request, response);
                 }
@@ -99,28 +128,31 @@ public class reliefController extends HttpServlet {
                 {
                     String
                             id = (String) request.getParameter("id"),
-                            table = "reliefs",
-                            query = "SELECT * FROM " + table + " WHERE id = " + id +";";
+                            query = "SELECT * FROM reliefs WHERE id = " + id;
 
                     Relief _relief = new Relief();
+                    
 
                     try {
                         Class.forName(driver);
-                        try (Connection con = DriverManager.getConnection(url, username, password); Statement st = con.createStatement()) {
-                            ResultSet rs = st.executeQuery(query);
+                        Connection con = DriverManager.getConnection(url, username, password); 
+                        Statement st = con.createStatement();
+                        ResultSet rs = st.executeQuery(query);
                             
-                            while (rs.next()) {
-                                _relief.setId(rs.getInt("id"));
-                                _relief.setTitle(rs.getString("name"));
-                                _relief.setUser(rs.getString("userID"));
-                                _relief.setDescription(rs.getString("description"));
-                                _relief.setLocation(rs.getString("location"));
-                                _relief.setStartDate(rs.getString("startDate"));
-                                _relief.setEndDate(rs.getString("endDate"));
-                                _relief.setState(rs.getString("state"));
-                            }
-                            con.close();
+                        while (rs.next()) {
+                            _relief.setId(rs.getInt("id"));
+                            _relief.setTitle(rs.getString("name"));
+                            _relief.setUser(rs.getString("userID"));
+                            _relief.setDescription(rs.getString("description"));
+                            _relief.setLocation(rs.getString("location"));
+                            _relief.setStartDate(rs.getString("startDate"));
+                            _relief.setEndDate(rs.getString("endDate"));
+                            _relief.setState(rs.getString("state"));
                         }
+                            
+                        con.close();
+                        st.close();
+                        
                     } catch (SQLException | ClassNotFoundException ex) {
                         Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -128,6 +160,31 @@ public class reliefController extends HttpServlet {
                     request.setAttribute("relief", _relief);
                     RequestDispatcher rd = request.getRequestDispatcher("/views/relief/view_relief.jsp");
                     rd.forward(request, response);
+                }
+                break;
+            case "join": 
+                {
+                    HttpSession session = request.getSession();
+                    user thisUser = (user) session.getAttribute("currUser");
+                    
+                    String
+                            id = (String) request.getParameter("id"),
+                            query = "insert into user_reliefs(userId, reliefId) values ('" + thisUser.getId() + "','" + id +  "')";
+
+                    try {
+                        Class.forName(driver);
+                        Connection con = DriverManager.getConnection(url, username, password); 
+                        Statement st = con.createStatement();
+                        st.executeUpdate(query);
+                            
+                        con.close();
+                        st.close();
+                        
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    response.sendRedirect("relief?request=index");
                 }
                 break;
             case "create":
@@ -149,15 +206,12 @@ public class reliefController extends HttpServlet {
 
                     try {
                         Class.forName(driver);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    try {
-                        try (Connection con = DriverManager.getConnection(url, username, password); Statement st = con.createStatement()) {
-                            st.executeUpdate(query);
-                        }
-                    } catch (SQLException ex) {
+                        Connection con = DriverManager.getConnection(url, username, password); 
+                        Statement st = con.createStatement();
+                        st.executeUpdate(query);
+                        st.close();
+                        con.close();
+                    } catch (SQLException | ClassNotFoundException ex) {
                         Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
@@ -175,21 +229,22 @@ public class reliefController extends HttpServlet {
 
                     try {
                         Class.forName(driver);
-                        try (Connection con = DriverManager.getConnection(url, username, password); Statement st = con.createStatement()) {
-                            ResultSet rs = st.executeQuery(query);
-                            
-                            while (rs.next()) {
-                                _relief.setId(rs.getInt("id"));
-                                _relief.setTitle(rs.getString("name"));
-                                _relief.setUser(rs.getString("userID"));
-                                _relief.setDescription(rs.getString("description"));
-                                _relief.setLocation(rs.getString("location"));
-                                _relief.setStartDate(rs.getString("startDate"));
-                                _relief.setEndDate(rs.getString("endDate"));
-                                _relief.setState(rs.getString("state"));
-                            }
-                            con.close();
+                        Connection con = DriverManager.getConnection(url, username, password); 
+                        Statement st = con.createStatement();
+                        ResultSet rs = st.executeQuery(query);
+
+                        while (rs.next()) {
+                            _relief.setId(rs.getInt("id"));
+                            _relief.setTitle(rs.getString("name"));
+                            _relief.setUser(rs.getString("userID"));
+                            _relief.setDescription(rs.getString("description"));
+                            _relief.setLocation(rs.getString("location"));
+                            _relief.setStartDate(rs.getString("startDate"));
+                            _relief.setEndDate(rs.getString("endDate"));
+                            _relief.setState(rs.getString("state"));
                         }
+                        st.close();
+                        con.close();
                     } catch (SQLException | ClassNotFoundException ex) {
                         Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -254,11 +309,6 @@ public class reliefController extends HttpServlet {
                             
                     try {
                         Class.forName(driver);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    try {
                         Connection con = DriverManager.getConnection(url, username, password);
                         PreparedStatement  st = con.prepareStatement(query);
                         st.setString(1,id);
@@ -268,7 +318,7 @@ public class reliefController extends HttpServlet {
                         System.out.println(insertStatus + " row affected");
                         con.close();
                         st.close();
-                    } catch (SQLException ex) {
+                    } catch (SQLException | ClassNotFoundException ex) {
                         Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
@@ -290,7 +340,11 @@ public class reliefController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -304,7 +358,11 @@ public class reliefController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(reliefController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
